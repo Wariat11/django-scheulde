@@ -17,3 +17,4 @@ pip install -r requirements.txt
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
+![obraz](https://user-images.githubusercontent.com/54996433/228231474-a02535ad-3da5-4cf5-9c17-d6ca1f00afb2.png)
