@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'scheulder\css\mystyle.css' %}">
+{% endblock style %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex  align-items-center flex-column">
+        <div id="calendar">
+            <div class="clearfix btn-months">
+                <div class="pb-2 d-flex justify-content-end align-items-center">
+                    <input class="m-0 mr-1" type="text" name="datepicker" id="datepicker">
+                    <button id="submit-btn" class="btn btn-primary">Przejdź</button>
+                </div>
+                <div class="action-btn d-flex justify-content-between">
+                    <div class="btn-add">
+                        <a href="{% url 'calendar:add' %}"><button class="btn btn-primary">Dodaj</button></a>
+                    </div>
+                    <div class="btns-months">
+                        <a href="{% url 'calendar:scheulder' %}?{{ prev_month }}"><button class="btn btn-primary">Poprzedni miesiąc</button></a>
+                        <a href="{% url 'calendar:scheulder' %}"><button class="btn btn-primary">Dzisiaj</button></a>
+                        <a href="{% url 'calendar:scheulder' %}?{{ next_month }}"><button class="btn btn-primary">Następny miesiąc</button></a>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar">{{cal|safe}}</div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+{% block modal %}
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header p-4">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div id="modal-body" class="p-4">
+        </div>
+        <div class="modal-footer position-relative">
+          <form class="modal-form" method="POST">
+            {% csrf_token %}
+
+          </form>
+          <div class="modal-footer-btn">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock modal %}
+
+{% block javascript %}
+<script src="{% static 'scheulder/javascript/some_js.js' %}"></script>
+{% endblock javascript %}

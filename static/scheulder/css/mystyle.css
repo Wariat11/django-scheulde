@@ -1,0 +1,152 @@
+#calendar{
+    width: 95%;
+    margin: 20px 0;
+}
+.month{
+    width: 100%;
+    color: #8a8a8a;
+}
+.day,.noday{
+    display: flex;
+    flex-direction: column;
+    height: 145px;
+    border: 1px solid #dfdfdf;
+    color: #8a8a8a;
+    font-weight: bold;
+    background-color: #f5f5f5;
+}
+td{
+    width: 14.285%;
+} 
+.weekday{
+    background-color: #325d88;
+    padding: 10px;
+    color: #fff;
+}
+.month-head{
+    color: #333;
+}
+
+#modal-btn{
+    gap: 0.1rem;
+}
+.service-name{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 15ch;
+}
+
+.day p{
+    width: 30px;
+    background-color: #333;
+    border-radius: 50%;
+    padding: 4px;
+    align-self: flex-end;
+    cursor:default;
+    margin: 4px 5px 4px 0;
+    color:#fff
+}
+
+.day li{
+    list-style: none;
+    margin: 2px 3px 0;
+}
+
+.day li a{
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    padding: 0;
+}
+a{
+    color: #325d88;
+}
+a:hover{
+    color: #325d88;
+}
+.day ul{
+    position: relative;
+    background-color: #f5f5f5;
+    margin:0;
+    padding:0;
+}
+.readmore-active{
+    z-index:2;
+}
+.readmore-btn{
+    z-index: 2;
+    background-color: #f5f5f5a3;
+}
+.btn-months{
+    text-align: right;
+    margin-bottom: 5px;
+}
+#add-event-btn{
+    position: absolute;
+    right: 15px;
+    margin-bottom: 23px;
+    top: 95px;
+}
+.modal-form{
+    position: absolute;
+    left: 0.8rem;
+}
+
+.add-button-event{
+    margin: 5rem;
+}
+
+@media (max-width: 1024px){
+    .day, .noday{
+        height: 115px;
+    }
+    #modal-btn{
+        font-size: 10px;
+        line-height: 16px;
+    }
+    .service-name{
+        max-width: 12ch;
+    }
+}  
+@media (max-width: 680px){
+.service-name{
+    max-width: 6ch;
+}
+}
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+@media (max-width:590px){
+    .btn{
+        font-size: 9px;
+        padding: 3px 6px;
+    }
+    tbody tr{
+        display: flex;
+        flex-direction: column;
+    }
+    tbody tr td{
+        width: 100%;
+    }
+    .day, .noday{
+        height: 140px;
+    }
+    #modal-btn {
+        font-size: 12px;
+        line-height: 24px;
+      }
+    .day p{
+        align-self: start;
+        margin: 4px 5px;
+    }
+    tbody tr:nth-child(2){
+        display: none;
+    }
+    .noday{
+        display: none;
+    }
+    .service-name{
+        max-width: 36ch;
+    }
+}
