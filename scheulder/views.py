@@ -5,9 +5,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 from .utils import CustomHTMLCal
 from .models import Event
 from .forms import EventForm, ServiceForm
-from datetime import date
+from datetime import date, timedelta
+from calendar import monthrange
 from django.http import JsonResponse
-from django.http import HttpResponseRedirect
 from django.views.generic import (
     ListView,
     CreateView,
@@ -96,6 +96,9 @@ class CalendarView(ListView):
         context["cal"] = cal 
         return context
 
+
+
+
 def get_date(req_day):
     if req_day:
         year = int(req_day.split('-')[0]) # Pobierz date z URL i rozdziel [0] parametr ROK
@@ -104,26 +107,15 @@ def get_date(req_day):
     return datetime.today() # Jeśli url jest pusty to zwraca dzisiejszą date
     
 
-def prev_month(d):
-    prev_month = d.month - 1
-    if prev_month < 1: # Jeśli liczbą miesiąca spadnie poniżej 1 to ustaw miesiąc na 12
-        next_month = 12 # Ustawia miesiąc na 1 (grudzień)
-        next_year = d.year - 1 # Odejmuje rok -1
-        next_year = datetime(next_year,next_month,1) # Konwertuje na grudzień z poprzednik rokiem
-        return 'month=' + str(next_year.year) + '-' + str(next_month)
-    
-    month = datetime(d.year,prev_month, day=1) 
-    return 'month=' + str(month.year) + '-' + str(month.month)
+def prev_month(req_month):
+    current_date = date(req_month.year,req_month.month,1) # Pobierz aktaulną date ustaw dzień na 1
+    prev_date = current_date - timedelta(1) # odejmuje 1 od pierwszego dnia co zwraca poprzedni miesiąc
+    return 'month=' + str(prev_date.year) + '-' + str(prev_date.month) 
 
 
+def next_month(req_month):
+    day_in_month = monthrange(req_month.year,req_month.month)[1] # Zwróc ile jest dni w danym miesiącu
+    current_date = date(req_month.year,req_month.month,day_in_month) # Pobierz aktualną date, i ustaw dzień na ostatni z miesiąca
+    next_month = current_date + timedelta(1) 
+    return 'month=' + str(next_month.year) + '-' + str(next_month.month) 
 
-def next_month(d):
-    next_month = d.month + 1 # Pobiera aktualny miesiac i dodaje +1 w typie INT
-    if next_month > 12: # Jeśli liczbą miesiąca przekroczy 12 to dodaje +1 rok 
-        next_month = 1 # Ustawia miesiąc na 1 (styczeń)
-        next_year = d.year + 1 # Dodaje rok +1
-        next_year = datetime(next_year,next_month,1) # konwertuje na styczeń z nastepnym rokiem
-        return 'month=' + str(next_year.year) + '-' + str(next_month)
-    
-    next_month = datetime(d.year,next_month,1) # Zmieniamy next_month na datetime format i ustawiamy 
-    return 'month=' + str(next_month.year) + '-' + str(next_month.month)
